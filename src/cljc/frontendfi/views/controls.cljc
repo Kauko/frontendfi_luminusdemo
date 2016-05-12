@@ -32,5 +32,3 @@
            [:dt "Tick: "]
            [:dd (input *speed) " ms"]])
 
-#?(:cljs
-   (defcard foo (controls)))

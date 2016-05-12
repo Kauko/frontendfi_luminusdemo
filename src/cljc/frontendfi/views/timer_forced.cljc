@@ -1,7 +1,8 @@
 (ns frontendfi.views.timer-forced
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

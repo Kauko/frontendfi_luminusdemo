@@ -1,7 +1,9 @@
 (ns frontendfi.views.context
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  (:require-macros
+    [devcards.core :as dc :refer [defcard deftest defcard-doc]]))
 
 ;; Components with context that all descendants have access to implicitly.
 
@@ -14,7 +16,7 @@
   [comp]
   [:span
     { :style { :color (.. comp -context -color) }}
-    "Child component uses context to set font color."])
+    "CHILD component uses context to set font color."])
 
 
 ;; Assume the following component is from our source code.
@@ -31,3 +33,5 @@
 
 (defn mount! [mount-el]
   (rum/mount (context) mount-el))
+
+(defcard-doc "This will only change after (reset-autobuild)")

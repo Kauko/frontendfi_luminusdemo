@@ -1,7 +1,8 @@
 (ns frontendfi.views.form-validation
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 (rum/defc validating-input < rum/reactive [ref fn]

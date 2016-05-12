@@ -31,8 +31,7 @@
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [luminus-immutant "0.2.0"]
 
-                 [rum "0.8.3"]
-                 [devcards "0.2.1-6"]]
+                 [rum "0.8.3"]]
 
   :min-lein-version "2.0.0"
 
@@ -99,6 +98,7 @@
                                  [lein-doo "0.1.6"]
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
 
+                                 [devcards "0.2.1-6"]
                                  [org.clojure/tools.namespace "0.2.11"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]
                                  [lein-figwheel "0.5.2"]
@@ -115,13 +115,14 @@
                        :optimizations :none
                        :source-map true}}
                      :devcards
-                     {:source-paths ["env/dev/cljs"]
+                     {:source-paths ["devcards/cljs"]
                       :figwheel { :devcards true }
-                      :compiler {:main "frontendfi.app"
+                      :compiler {:main "frontendfi.devcards.main"
                                  :asset-path "js/devcards_out"
                                  :output-to  "target/cljsbuild/public/js/frontendfi_devcards.js"
                                  :output-dir "target/cljsbuild/public/js/devcards_out"
-                                 :source-map-timestamp true }}
+                                 :source-map-timestamp true
+                                 :optimizations :none}}
                      :test
                      {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
                       :compiler

@@ -1,7 +1,8 @@
 (ns frontendfi.views.board-cursored
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Cursor drawing board
@@ -39,3 +40,5 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (board-cursored *board) mount-el)))
+
+

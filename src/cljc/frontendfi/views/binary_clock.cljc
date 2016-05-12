@@ -1,7 +1,8 @@
 (ns frontendfi.views.binary-clock
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Binary clock
@@ -47,3 +48,4 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (binary-clock) mount-el)))
+

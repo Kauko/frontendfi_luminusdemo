@@ -1,7 +1,8 @@
 (ns frontendfi.views.custom-props
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Custom methods and data on the underlying React components.

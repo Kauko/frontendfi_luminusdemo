@@ -1,7 +1,8 @@
 (ns frontendfi.views.self-reference
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Self-referencing component
@@ -19,3 +20,4 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (self-reference [:a [:b [:c :d [:e] :g]]]) mount-el)))
+

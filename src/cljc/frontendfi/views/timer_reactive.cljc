@@ -1,7 +1,8 @@
 (ns frontendfi.views.timer-reactive
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -24,3 +25,4 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (timer-reactive) mount-el)))
+

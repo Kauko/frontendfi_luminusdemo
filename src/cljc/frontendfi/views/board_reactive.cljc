@@ -1,7 +1,8 @@
 (ns frontendfi.views.board-reactive
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Reactive drawing board
@@ -35,3 +36,5 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (board-reactive) mount-el)))
+
+

@@ -1,7 +1,8 @@
 (ns frontendfi.views.local-state
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;; Local component state
@@ -20,3 +21,5 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (local-state "Clicks count") mount-el)))
+
+

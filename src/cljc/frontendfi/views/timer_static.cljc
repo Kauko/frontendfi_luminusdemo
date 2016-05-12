@@ -21,3 +21,5 @@
   (add-watch utils/*clock :timer-static
              (fn [_ _ _ new-val]
                (rum/mount (timer-static "Static" new-val) mount-el)))))
+
+

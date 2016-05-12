@@ -1,7 +1,8 @@
 (ns frontendfi.views.bmi-calculator
   (:require
     [rum.core :as rum]
-    [frontendfi.utils :as utils]))
+    [frontendfi.utils :as utils])
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -58,3 +59,4 @@
 #?(:cljs
 (defn mount! [mount-el]
   (rum/mount (bmi-calculator) mount-el)))
+

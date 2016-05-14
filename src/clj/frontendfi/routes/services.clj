@@ -1,7 +1,8 @@
 (ns frontendfi.routes.services
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s]
+            [frontendfi.models.model :as model]))
 
 (defapi service-routes
   {:swagger {:ui "/swagger-ui"
@@ -11,6 +12,14 @@
                            :description "Sample Services"}}}}
   (context "/api" []
     :tags ["thingie"]
+
+    (GET "/initialize" []
+         :summary "Initializes the departments and employees"
+         (ok (model/init!)))
+
+     (GET "/refresh" []
+          :summary "Refreshes the people and departments"
+          (ok (model/refresh!)))
 
     (GET "/plus" []
       :return       Long

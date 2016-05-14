@@ -7,6 +7,7 @@
             [ajax.core :refer [GET POST]]
 
             [rum.core :as rum]
+            [frontendfi.views.examples :as examples]
             [frontendfi.views.app :as app])
   (:import goog.History))
 
@@ -42,7 +43,11 @@
 ;; Initialize app
 
 (defn mount-components []
-  (app/mount! (js/document.getElementById "app")))
+  (let [app (js/document.getElementById "app")]
+    (if app
+      (app/mount! app)
+      (let [examples (js/document.getElementById "examples")]
+        (examples/mount! examples)))))
 
 (defn init! []
   (load-interceptors!)

@@ -1,6 +1,7 @@
 (ns frontendfi.views
   (:require [hiccup.page :as page]
             [rum.core :as rum]
+            [frontendfi.views.examples :refer [examples]]
             [frontendfi.views.app :refer [app]]))
 
 (defn- boilerplate-js [token context]
@@ -34,7 +35,7 @@
                             vertical-align: middle;
                    }")
 
-(defn main [{:keys [csrf-token servlet-context]}]
+(defn page-template [element {:keys [csrf-token servlet-context]}]
   [:html
    [:head
     [:meta
@@ -44,8 +45,7 @@
     [:title "Welcome to frontendfi"]]
    [:body
     [:div#navbar]
-    [:div#app
-     (rum/render-html (app))]
+    element
     [:link
      {:type "text/css",
       :rel  "stylesheet",
@@ -60,6 +60,10 @@
      {:type "text/javascript"}
      (boilerplate-js csrf-token servlet-context)]
     [:script {:type "text/javascript", :src "/js/app.js"}]]])
+
+(def main-page (partial page-template [:div#app (rum/render-html (app))]))
+
+(def examples-page (partial page-template [:div#examples (rum/render-html (examples))]))
 
 (defn error [{:keys [status title message]}]
   (page/html5
@@ -87,7 +91,7 @@
           (when title [:h2.without-margin title])
           (when message [:h4.text-danger message])]]]]]]))
 
-(rum/defc devcards [params]
+(defn devcards [_]
   [:html
    [:head
     [:meta

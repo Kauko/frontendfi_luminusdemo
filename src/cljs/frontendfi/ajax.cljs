@@ -3,13 +3,11 @@
 
 (defn default-headers [request]
   (-> request
-      (update :uri #(str js/context %))
       (update
         :headers
         #(merge
           %
-          {"Accept" "application/transit+json"
-           "x-csrf-token" js/csrfToken}))))
+          {"Accept" "application/transit+json"}))))
 
 (defn load-interceptors! []
   (swap! ajax/default-interceptors

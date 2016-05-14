@@ -115,7 +115,7 @@
                        :optimizations :none
                        :source-map true}}
                      :devcards
-                     {:source-paths ["devcards/cljs"]
+                     {:source-paths ["devcards/cljs" "src/cljc" "src/cljs"]
                       :figwheel { :devcards true }
                       :compiler {:main "frontendfi.devcards.main"
                                  :asset-path "js/devcards_out"

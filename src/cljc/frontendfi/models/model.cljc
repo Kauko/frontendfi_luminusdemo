@@ -1,5 +1,6 @@
 (ns frontendfi.models.model
-  (:require [clojure.set :as set]))
+  (:require [clojure.set :as set]
+            #?(:cljs [ajax.core :refer [GET POST]])))
 
 (def initial
   {:people/by-id {}
@@ -96,21 +97,26 @@
     (doseq [person-id departmentless]
       (add-employee-to-department! (take-random department-ids) person-id))))
 
-(defn foo []
-  (reset! model initial)
-  (add-generated-people! 10)
-  (make-sure-everyone-has-a-department!)
-  @model)
-
 #?(:clj
-   (defn init! []
+   (defn init! [_]
      (reset! model initial)
      (add-generated-people! 10)
      (make-sure-everyone-has-a-department!)
      @model))
 
-#?(:clj
-   (defn refresh! []
-     (add-generated-people! 3)
-     (make-sure-everyone-has-a-department!)
-     @model))
+#?(:cljs
+   (defn init! [{:keys [on-success]}]
+     (GET "/api/model"
+          {:handler (fn [result]
+                      (js/console.log (str "The result is: " (pr-str result)))
+                      (reset! model result)
+                      (on-success))})))
+
+(defn refresh! []
+  #?(:clj
+     (do (add-generated-people! 3)
+         (make-sure-everyone-has-a-department!)
+         @model))
+  #?(:cljs
+     (GET "/api/refresh"
+          {:handler (fn [result] (reset! model result))})))

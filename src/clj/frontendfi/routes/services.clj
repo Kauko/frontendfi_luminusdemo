@@ -15,11 +15,15 @@
 
     (GET "/initialize" []
          :summary "Initializes the departments and employees"
-         (ok (model/init!)))
+         (ok (model/init! {})))
 
      (GET "/refresh" []
           :summary "Refreshes the people and departments"
           (ok (model/refresh!)))
+
+    (GET "/model" []
+         :summary "Returns the existing people and departments"
+         (ok @model/model))
 
     (GET "/plus" []
       :return       Long

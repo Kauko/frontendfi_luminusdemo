@@ -4,10 +4,11 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
 
-            [frontendfi.views :as views]))
+            [frontendfi.views :as views]
+            [frontendfi.models.model :as model]))
 
 (defn home-page []
-  (layout/render views/main-page))
+  (layout/render views/main-page {:element-opts {:data model/model}}))
 
 (defn examples []
   (layout/render views/examples-page))

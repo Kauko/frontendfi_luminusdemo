@@ -35,7 +35,7 @@
                             vertical-align: middle;
                    }")
 
-(defn page-template [element {:keys [csrf-token servlet-context]}]
+(defn page-template [element {:keys [csrf-token servlet-context element-opts]}]
   [:html
    [:head
     [:meta
@@ -45,7 +45,7 @@
     [:title "Welcome to frontendfi"]]
    [:body
     [:div#navbar]
-    element
+    (element element-opts)
     [:link
      {:type "text/css",
       :rel  "stylesheet",
@@ -61,9 +61,9 @@
      (boilerplate-js csrf-token servlet-context)]
     [:script {:type "text/javascript", :src "/js/app.js"}]]])
 
-(def main-page (partial page-template [:div#app (rum/render-html (app))]))
+(def main-page (partial page-template (fn [{:keys [data]}] [:div#app (rum/render-html (app data))])))
 
-(def examples-page (partial page-template [:div#examples (rum/render-html (examples))]))
+(def examples-page (partial page-template (fn [_] [:div#examples (rum/render-html (examples))])))
 
 (defn error [{:keys [status title message]}]
   (page/html5

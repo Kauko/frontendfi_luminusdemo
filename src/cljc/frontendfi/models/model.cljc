@@ -4,9 +4,9 @@
 
 (def initial
   {:people/by-id {}
-   :departments/by-id {0 {:name "Software" :people #{}}
-                       1 {:name "Marketing" :people #{}}
-                       2 {:name "HR" :people #{}}}})
+   :departments/by-id {0 {:name "Software" :people #{} :id 0}
+                       1 {:name "Marketing" :people #{} :id 1}
+                       2 {:name "HR" :people #{} :id 2}}})
 
 (def people-path [:people/by-id])
 (def department-path [:departments/by-id])
@@ -74,10 +74,10 @@
    (add-people! (repeatedly n generate-person))))
 
 (defn remove-employee-from-department! [dept-id id]
-  (swap! model update-in (dept-employees-path dept-id) disj id))
+  (swap! model update-in (dept-employees-path dept-id) disj (conj people-path id)))
 
 (defn add-employee-to-department! [dept-id id]
-  (swap! model update-in (dept-employees-path dept-id) conj id))
+  (swap! model update-in (dept-employees-path dept-id) conj (conj people-path id)))
 
 (defn switch-employees-department! [dept-id id]
   (doseq [[dept-id _] (get-in @model department-path)]
@@ -93,7 +93,7 @@
 (defn make-sure-everyone-has-a-department! []
   (let [people-ids (set (keys (get-in @model people-path)))
         department-ids (keys (get-in @model department-path))
-        departmentless (set/difference people-ids (people-in-departments))]
+        departmentless (set/difference people-ids (map second (people-in-departments)))]
     (doseq [person-id departmentless]
       (add-employee-to-department! (take-random department-ids) person-id))))
 

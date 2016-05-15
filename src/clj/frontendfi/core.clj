@@ -7,7 +7,8 @@
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [luminus.logger :as logger]
-            [mount.core :as mount])
+            [mount.core :as mount]
+            [frontendfi.models.model :as model])
   (:gen-class))
 
 (def cli-options
@@ -45,6 +46,7 @@
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
+  (model/init! {})
   (logger/init (:log-config env))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 

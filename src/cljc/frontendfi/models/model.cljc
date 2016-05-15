@@ -87,6 +87,9 @@
 (defn department-employees [dept-id]
   (get-in @model (dept-employees-path dept-id)))
 
+(defn employee-in-deparment? [dept-id person-id]
+  ((set (map second (department-employees dept-id))) person-id))
+
 (defn people-in-departments []
   (apply set/union (map (fn [[_ department]] (get-in department employees-path)) (get-in @model department-path))))
 

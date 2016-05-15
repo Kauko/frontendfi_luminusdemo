@@ -2,23 +2,45 @@
   (:require [rum.core :as rum]
             [frontendfi.models.model :as model]))
 
-(rum/defc person < rum/static [person]
-          [:li (:name person) ", " (:age person)])
+(rum/defc remove-person-from-dept-button [dept person]
+          [:button {:on-click #(model/remove-employee-from-department!
+                                (:id dept)
+                                (:id person))}
+           "X"])
 
-(rum/defc people < rum/reactive [people]
-          (let [people (map second (sort (rum/react people)))]
+(rum/defc switch-dept-button [dept person]
+          [:button {:on-click #(model/switch-employees-department! (:id dept) (:id person))}
+           (str "Add to " (:name dept))])
+
+(rum/defc person < rum/static [person]
+          [:span (:name person) ", " (:age person)])
+
+(rum/defc people < rum/reactive [people departments]
+          (let [people (map second (sort (rum/react people)))
+                departments (map second (sort (rum/react departments)))]
             [:div
              [:p "We have " (str (count people)) " employees in total"]
              [:ul
               (for [p people]
-                (rum/with-key (person p) (str "person_" (:id p))))]]))
+                [:li
+                 {:key (str "person_info" (:id p))}
+                 (rum/with-key (person p) (str "person_" (:id p)))
+                 (for [d departments]
+                   (when-not (model/employee-in-deparment? (:id d) (:id p))
+                     (rum/with-key
+                       (switch-dept-button d p)
+                       (str "switch_" (:id d) "_" (:id p)))))])]]))
 
 (rum/defc dept < rum/static [d employees]
           [:div
            [:p (:name d) " has " (count (:people d)) " employees."]
            [:ul
             (for [p employees]
-              (rum/with-key (person p) (str "employee_" (:id p))))]])
+              [:li
+               {:key (str "dept_info_" (:id p))}
+               (rum/with-key (person p) (str "employee_" (:id p)))
+               (rum/with-key (remove-person-from-dept-button d p)
+                             (str "remove_emp_btn_" (:id p)))])]])
 
 (rum/defc departments < rum/reactive [atom]
           (let [model (rum/react atom)
@@ -30,7 +52,7 @@
 
 (rum/defc app [atom]
           [:div
-           (people (rum/cursor atom model/people-path))
+           (people (rum/cursor atom model/people-path) (rum/cursor atom model/department-path))
            (departments atom)])
 
 #?(:cljs

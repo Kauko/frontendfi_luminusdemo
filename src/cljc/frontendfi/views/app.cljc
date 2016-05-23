@@ -21,15 +21,18 @@
             [:div
              [:p "We have " (str (count people)) " employees in total"]
              [:ul
-              (for [p people]
-                [:li
-                 {:key (str "person_info" (:id p))}
-                 (rum/with-key (person p) (str "person_" (:id p)))
-                 (for [d departments]
-                   (when-not (model/employee-in-deparment? (:id d) (:id p))
-                     (rum/with-key
-                       (switch-dept-button d p)
-                       (str "switch_" (:id d) "_" (:id p)))))])]]))
+              (map-indexed
+                (fn [i p]
+                  [:li
+                   {:key (str "person_info" (:id p))
+                    :class (if (even? i) "even" "uneven")}
+                   (rum/with-key (person p) (str "person_" (:id p)))
+                   (for [d departments]
+                     (when-not (model/employee-in-deparment? (:id d) (:id p))
+                       (rum/with-key
+                         (switch-dept-button d p)
+                         (str "switch_" (:id d) "_" (:id p)))))])
+                people)]]))
 
 (rum/defc dept < rum/static [d employees]
           [:div

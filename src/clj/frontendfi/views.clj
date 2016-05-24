@@ -63,6 +63,8 @@
 
 (def main-page (partial page-template (fn [{:keys [data]}] [:div#app (rum/render-html (app data))])))
 
+(def reagent-page (partial page-template (fn [_] [:div#reagent-app])))
+
 (def examples-page (partial page-template (fn [_] [:div#examples (rum/render-html (examples))])))
 
 (defn error [{:keys [status title message]}]

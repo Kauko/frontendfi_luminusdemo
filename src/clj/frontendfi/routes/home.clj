@@ -16,8 +16,12 @@
 (defn devcards []
   (layout/render views/devcards))
 
+(defn reagent []
+  (layout/render views/reagent-page))
+
 (defroutes home-routes
-  (GET "/" [] (home-page))
+  (GET "/rum" [] (home-page))
+  (GET "/" [] (reagent))
   (GET "/examples" [] (examples))
   (GET "/devcards" [] (devcards))
   (GET "/error" [] (response/ok {:result (/ 10 0)}))

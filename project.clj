@@ -31,7 +31,8 @@
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [luminus-immutant "0.2.0"]
 
-                 [rum "0.8.3"]]
+                 [rum "0.8.3"]
+                 [reagent "0.6.0-alpha2"]]
 
   :min-lein-version "2.0.0"
 

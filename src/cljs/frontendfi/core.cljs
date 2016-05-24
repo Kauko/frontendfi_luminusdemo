@@ -8,7 +8,8 @@
 
             [rum.core :as rum]
             [frontendfi.views.examples :as examples]
-            [frontendfi.views.app :as app])
+            [frontendfi.views.app :as app]
+            [frontendfi.reagent.app :as reagent])
   (:import goog.History))
 
 #_(def pages
@@ -43,11 +44,20 @@
 ;; Initialize app
 
 (defn mount-components []
-  (let [app (js/document.getElementById "app")]
-    (if app
-      (app/mount! app)
-      (let [examples (js/document.getElementById "examples")]
-        (examples/mount! examples)))))
+  (let [rum (js/document.getElementById "app")
+        reagent (js/document.getElementById "reagent-app")
+        examples (js/document.getElementById "examples")]
+    (cond
+      reagent
+      (reagent/mount! reagent)
+
+      rum
+      (app/mount! rum)
+
+      examples
+      (examples/mount! examples)
+
+      :else nil)))
 
 (defn init! []
   (load-interceptors!)

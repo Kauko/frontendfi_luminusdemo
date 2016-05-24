@@ -111,11 +111,18 @@
 
 #?(:cljs
    (defn init! [{:keys [on-success]}]
-     (GET "/api/model"
-          {:handler (fn [result]
-                      (js/console.log (str "The result is: " (pr-str result)))
-                      (reset! model result)
-                      (on-success))})))
+     (if on-success
+       (GET "/api/model"
+           {:handler (fn [result]
+                       (js/console.log (str "The result is: " (pr-str result)))
+                       (reset! model result)
+                       (on-success))})
+
+       (do
+         (reset! model initial)
+         (add-generated-people! 10)
+         (make-sure-everyone-has-a-department!)
+         @model))))
 
 (defn refresh! []
   #?(:clj

@@ -14,7 +14,8 @@
 (defn dept-employees-path [dept-it]
   (concat (conj department-path dept-it) employees-path))
 
-(def model (atom initial))
+(defonce actions-taken (atom 0))
+(defonce model (atom initial))
 
 (defn next-id [path]
   (let [ids (keys (get-in @model path))]

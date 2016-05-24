@@ -53,8 +53,14 @@
                (rum/with-key (dept d (sort-by :id (map #(get-in model %) (:people d))))
                              (str "dept_" (:id d))))]))
 
+(rum/defc actions < rum/reactive []
+          [:div
+           {:on-click #(swap! model/actions-taken inc)}
+           (str "ACTIONS taken: " (rum/react model/actions-taken))])
+
 (rum/defc app [atom]
           [:div
+           (actions)
            (people (rum/cursor atom model/people-path) (rum/cursor atom model/department-path))
            (departments atom)])
 

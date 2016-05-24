@@ -1,7 +1,7 @@
 (ns frontendfi.models.model
   (:require [clojure.set :as set]
     #?(:cljs [ajax.core :refer [GET POST]])
-    #?(:cljs [reagent.core :refer [atom]])))
+    #?(:cljs [reagent.core :as r :refer [atom]])))
 
 (def initial
   {:people/by-id {}
@@ -17,6 +17,25 @@
 
 (defonce actions-taken (atom 0))
 (defonce model (atom initial))
+
+(defn materialised-departments [atom]
+  (map
+    (fn [dept]
+      (assoc dept :people
+                  (set (map
+                         (fn [emp-q]
+                           (get-in @atom emp-q))
+                         (:people dept)))))
+    (vals (get-in @atom department-path))))
+
+(defn materialised-department [atom id]
+  (some #(when (= (:id %) id) %) (materialised-departments atom)))
+
+(defn materialised-people [atom]
+  (map second (get-in @atom people-path)))
+
+(defn materialised-person [atom id]
+  (some #(when (= (:id %) id) %) (materialised-people atom)))
 
 (defn next-id [path]
   (let [ids (keys (get-in @model path))]

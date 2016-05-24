@@ -1,6 +1,7 @@
 (ns frontendfi.models.model
   (:require [clojure.set :as set]
-            #?(:cljs [ajax.core :refer [GET POST]])))
+    #?(:cljs [ajax.core :refer [GET POST]])
+    #?(:cljs [reagent.core :refer [atom]])))
 
 (def initial
   {:people/by-id {}

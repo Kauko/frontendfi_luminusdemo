@@ -1,6 +1,7 @@
 (ns frontendfi.devcards.main
   (:require
     [frontendfi.views.app :as main-app]
+    [frontendfi.devcards.reagent-cards :as rc]
     [frontendfi.models.model :as model])
   (:require-macros
     [devcards.core :as dc :refer [defcard deftest defcard-doc]]

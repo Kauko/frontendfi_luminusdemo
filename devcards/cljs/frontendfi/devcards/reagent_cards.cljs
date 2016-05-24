@@ -1,4 +1,4 @@
-(ns frontendfi.devcards.main
+(ns frontendfi.devcards.reagent-cards
   (:require
     [frontendfi.reagent.app :as app]
     [frontendfi.models.model :as model])

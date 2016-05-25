@@ -30,14 +30,14 @@
 
 (defcard-rg Lack-of-resources
             (fn [state _ ] [app/project-status
-                            (r/cursor state model/department-path)
-                            (r/cursor state model/people-path)])
+                            (r/track model/materialised-departments state)
+                            (r/track model/materialised-people state)])
             (r/atom model/initial))
 
 (defcard-rg Too-many-people
             (fn [state _ ] [app/project-status
-                            (r/cursor state model/department-path)
-                            (r/cursor state model/people-path)])
+                            (r/track model/materialised-departments state)
+                            (r/track model/materialised-people state)])
             (r/atom {:people/by-id {0 {:name "Mikko", :age 19, :gender "Male", :id 0},
                                     1 {:name "Pekka", :age 30, :gender "Male", :id 1},
                                     2 {:name "Maija", :age 25, :gender "Female", :id 2}},
@@ -46,8 +46,8 @@
 
 (defcard-rg Everything-is-awesome
             (fn [state _ ] [app/project-status
-                            (r/cursor state model/department-path)
-                            (r/cursor state model/people-path)])
+                            (r/track model/materialised-departments state)
+                            (r/track model/materialised-people state)])
             (r/atom {:people/by-id {0 {:name "Mikko", :age 19, :gender "Male", :id 0},
                                     2 {:name "Maija", :age 25, :gender "Female", :id 2}},
                      :departments/by-id {0 {:id 0, :name "Logistics", :people #{[:people/by-id 2]}}}})

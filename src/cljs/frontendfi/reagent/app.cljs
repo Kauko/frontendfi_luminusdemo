@@ -4,6 +4,8 @@
             [frontendfi.models.model :as model]))
 
 (defn project-status [departments people]
+  ;; departments: [{:name "" :people [{} {}]} {:name "" ...}]
+  ;; people: [{:name "" :age} {} {} {}]
   [:div "Not implemented!"])
 
 (defn remove-person-from-dept-button! [dept person]
